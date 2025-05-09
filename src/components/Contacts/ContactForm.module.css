@@ -1,0 +1,239 @@
+.contact {
+  padding: 8rem 2rem;
+  position: relative;
+  overflow: hidden;
+  background: none; /* удалим градиент, как в .about */
+}
+
+.contact::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('https://i.pinimg.com/736x/c6/4e/a6/c64ea6d78ce58a939570518f4bb84a7c.jpg') repeat;
+  opacity: 0.03;
+  z-index: -1; /* ключевое изменение */
+}
+
+
+.contactContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.contactInfo {
+  padding: 2rem;
+}
+
+.contactTitle {
+  font-size: 3.5rem;
+  margin-bottom: 2rem;
+  color: var(--dark);
+  position: relative;
+}
+
+.contactTitle::after {
+  content: '';
+  position: absolute;
+  bottom: -1rem;
+  left: 0;
+  width: 100px;
+  height: 5px;
+  background: linear-gradient(to right, var(--primary), var(--accent));
+  border-radius: 5px;
+}
+
+.contactText {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #555;
+  margin-bottom: 2rem;
+}
+
+.contactDetails {
+  margin-top: 3rem;
+}
+
+.contactItem {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.contactIcon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.2rem;
+}
+
+.contactForm {
+  background: white;
+  padding: 3rem;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.formGroup {
+  margin-bottom: 2rem;
+}
+
+.formLabel {
+  display: block;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  color: var(--dark);
+  font-weight: 600;
+}
+
+.formInput,
+.formTextarea {
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: all 0.3s;
+}
+
+.formInput:focus,
+.formTextarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(255, 77, 103, 0.2);
+}
+
+.formTextarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+.submitBtn {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  border: none;
+  padding: 1.2rem 2.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  width: 100%;
+}
+
+.submitBtn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Анимации */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.contactInfo,
+.contactForm {
+  animation: fadeIn 0.8s ease forwards;
+}
+
+.contactForm {
+  animation-delay: 0.2s;
+}
+
+/* Адаптивность */
+@media (max-width: 992px) {
+  .contactContainer {
+    grid-template-columns: 1fr;
+  }
+  
+  .contactInfo {
+    text-align: center;
+    padding: 0;
+  }
+  
+  .contactTitle::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 768px) {
+  .contact {
+    padding: 6rem 1.5rem;
+  }
+  
+  .contactTitle {
+    font-size: 2.5rem;
+  }
+  
+  .contactForm {
+    padding: 2rem;
+  }
+}
+
+/* Стили для сообщений формы */
+.formMessage {
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+.formMessage.success {
+  background-color: rgba(0, 200, 83, 0.1);
+  color: #00c853;
+  border: 1px solid #00c853;
+}
+
+.formMessage.error {
+  background-color: rgba(255, 77, 103, 0.1);
+  color: #ff4d67;
+  border: 1px solid #ff4d67;
+}
+
+/* Стили для чекбокса */
+.checkboxLabel {
+  display: flex;
+  align-items: center;
+  font-size: 0.9rem;
+  color: #555;
+  cursor: pointer;
+}
+
+.checkboxLabel input {
+  margin-right: 0.5rem;
+}
+
+.agreementLink {
+  color: var(--primary);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.agreementLink:hover {
+  color: var(--secondary);
+  text-decoration: underline;
+}
