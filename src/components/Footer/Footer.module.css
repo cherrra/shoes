@@ -1,52 +1,60 @@
+/* Footer.module.css */
 .footer {
-  background: var(--dark);
-  color: white;
-  padding: 6rem 2rem 3rem;
+  background: #000;
+  color: #fff;
+  padding: 5rem 2rem 2rem;
   position: relative;
 }
 
-.footer::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100px;
-  background-size: cover;
-  background-repeat: no-repeat;
-  transform: rotate(180deg);
-}
-
 .footerContent {
-  max-width: 1200px;
+  max-width: 1280px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 4rem;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 3rem;
+  padding-bottom: 3rem;
 }
 
 .footerLogo {
-  font-size: 2rem;
-  font-weight: 700;
-  margin-bottom: 1.5rem;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 12px;
+  margin-bottom: 1.5rem;
 }
 
-.footerLogo::before {
-  content: '';
-  display: block;
-  width: 30px;
-  height: 30px;
-  background: linear-gradient(45deg, var(--primary), var(--accent));
-  border-radius: 50%;
+.logoIcon {
+  font-size: 2rem;
+  color: var(--accent);
+  transform: rotate(45deg);
+  display: inline-block;
+}
+
+.logoText {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+
+.logoMain {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.5px;
+}
+
+.logoSub {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: #fff;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  opacity: 0.8;
 }
 
 .footerAbout {
   font-size: 1rem;
-  line-height: 1.8;
-  opacity: 0.8;
+  line-height: 1.6;
+  opacity: 0.7;
   margin-bottom: 2rem;
 }
 
@@ -63,11 +71,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s;
+  transition: all 0.3s ease;
+  color: #fff;
+  font-size: 1.2rem;
 }
 
 .socialLink:hover {
-  background: var(--primary);
+  background: var(--accent);
   transform: translateY(-3px);
 }
 
@@ -76,6 +86,7 @@
   margin-bottom: 1.5rem;
   position: relative;
   padding-bottom: 1rem;
+  color: #fff;
 }
 
 .footerTitle::after {
@@ -84,8 +95,8 @@
   bottom: 0;
   left: 0;
   width: 50px;
-  height: 3px;
-  background: linear-gradient(to right, var(--primary), var(--accent));
+  height: 2px;
+  background: var(--accent);
 }
 
 .footerLinks {
@@ -97,66 +108,85 @@
 }
 
 .footerLinks a {
-  color: rgba(255,255,255,0.8);
+  color: rgba(255,255,255,0.7);
   text-decoration: none;
-  transition: all 0.3s;
+  transition: all 0.3s ease;
+  display: inline-block;
   position: relative;
-  padding-left: 1.5rem;
+  padding-left: 1.2rem;
 }
 
 .footerLinks a::before {
-  content: '→';
+  content: '';
   position: absolute;
   left: 0;
-  color: var(--primary);
-  transition: transform 0.3s;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  border-radius: 50%;
+  transition: all 0.3s ease;
 }
 
 .footerLinks a:hover {
-  color: white;
-  padding-left: 2rem;
+  color: #fff;
+  padding-left: 1.5rem;
 }
 
 .footerLinks a:hover::before {
-  transform: translateX(5px);
+  background: #fff;
 }
 
-.newsletterInput {
-  width: 100%;
-  padding: 1rem;
-  background: rgba(255,255,255,0.1);
-  border: none;
+.contactInfo {
+  margin-bottom: 2rem;
+}
+
+.contactInfo p {
+  margin-bottom: 0.8rem;
+  opacity: 0.7;
+  font-size: 0.95rem;
+}
+
+.contactButton {
+  background: transparent;
+  color: #fff;
+  padding: 0.8rem 1.8rem;
   border-radius: 50px;
-  color: white;
-  margin-bottom: 1rem;
-}
-
-.newsletterInput::placeholder {
-  color: rgba(255,255,255,0.6);
-}
-
-.newsletterButton {
-  width: 100%;
-  padding: 1rem;
-  background: linear-gradient(to right, var(--primary), var(--accent));
-  color: white;
-  border: none;
-  border-radius: 50px;
-  font-weight: 700;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border: 2px solid var(--accent);
   cursor: pointer;
-  transition: all 0.3s;
+  transition: all 0.3s ease;
 }
 
-.newsletterButton:hover {
+.contactButton:hover {
+  background: var(--accent);
   transform: translateY(-3px);
-  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  box-shadow: 0 10px 20px rgba(255,51,102,0.3);
 }
 
 .footerBottom {
   text-align: center;
-  padding-top: 4rem;
-  margin-top: 4rem;
+  padding-top: 3rem;
+  margin-top: 3rem;
   border-top: 1px solid rgba(255,255,255,0.1);
   font-size: 0.9rem;
   opacity: 0.6;
+}
+
+@media (max-width: 768px) {
+  .footerContent {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .footerSection {
+    margin-bottom: 2rem;
+  }
+  
+  .footerBottom {
+    padding-top: 2rem;
+    margin-top: 2rem;
+  }
 }

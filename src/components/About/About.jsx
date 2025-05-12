@@ -1,19 +1,48 @@
 import React from 'react';
 import styles from './About.module.css';
+import { FiArrowRight } from 'react-icons/fi';
 
 const About = () => {
   return (
-    <section className={styles.about}>
-      <div className={styles.aboutContent}>
-        <h2 className={styles.sectionTitle}>О нас</h2>
-        <p className={styles.aboutText}>
-          Founded in 2023, SneakerShop is dedicated to bringing you the latest and greatest in sneaker fashion.
-          We carefully curate our collection to ensure only the highest quality products make it to your feet.
-        </p>
-        <p className={styles.aboutText}>
-          Our mission is to provide sneaker enthusiasts with a seamless shopping experience and access to
-          exclusive releases from top brands around the world.
-        </p>
+    <section className={styles.about} id="about">
+      <div className={styles.aboutContainer}>
+        <div className={styles.aboutContent}>
+          <h2 className={styles.sectionTitle}>DREAMSNEAKERS — ЭТО НЕ ПРОСТО МАГАЗИН</h2>
+          
+          <div className={styles.aboutColumns}>
+            <div className={styles.aboutColumn}>
+              <div className={styles.aboutNumber}>01</div>
+              <h3 className={styles.aboutSubtitle}>Культура</h3>
+              <p className={styles.aboutText}>
+                Мы создаем сообщество, где кроссовки — это образ жизни. Наши ивенты и коллаборации объединяют истинных ценителей уличной моды.
+              </p>
+            </div>
+            
+            <div className={styles.aboutColumn}>
+              <div className={styles.aboutNumber}>02</div>
+              <h3 className={styles.aboutSubtitle}>Экспертиза</h3>
+              <p className={styles.aboutText}>
+                Каждая пара проходит проверку нашими экспертами. Мы знаем все о технологиях брендов и особенностях каждой модели.
+              </p>
+            </div>
+            
+            <div className={styles.aboutColumn}>
+              <div className={styles.aboutNumber}>03</div>
+              <h3 className={styles.aboutSubtitle}>Доступность</h3>
+              <p className={styles.aboutText}>
+                Специальные условия для постоянных клиентов, лист ожидания на редкие модели и честные цены без накруток.
+              </p>
+            </div>
+          </div>
+          
+          <button className={styles.aboutButton}>
+            Узнать нашу историю <FiArrowRight />
+          </button>
+        </div>
+        
+        <div className={styles.aboutImage}>
+          <div className={styles.imageOverlay}></div>
+        </div>
       </div>
     </section>
   );

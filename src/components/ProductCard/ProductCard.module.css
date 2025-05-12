@@ -1,165 +1,173 @@
+/* ProductCard.module.css */
 .card {
-  perspective: 1500px;
-  transform-style: preserve-3d;
-  background: transparent;
-  border: none;
-  position: relative;
-  border-radius: 24px; /* Увеличил скругление */
-  overflow: hidden; /* Добавил для корректного скругления */
-}
-
-.cardInner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  transform-style: preserve-3d;
-  transition: transform 0.8s cubic-bezier(0.75, 0, 0.85, 1);
-  border-radius: inherit; /* Наследует скругление от родителя */
-}
-
-.card:hover .cardInner {
-  transform: rotateY(180deg) scale(1.02); /* Добавил легкое увеличение */
-}
-
-.cardFront, .cardBack {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  border-radius: inherit; /* Используем наследование */
+  background: #fff;
+  border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15); /* Более мягкая тень */
-  transition: all 0.6s ease; /* Плавные переходы */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-.cardFront {
-  background: white;
-  display: flex;
-  flex-direction: column;
-  border: 1px solid rgba(0, 0, 0, 0.05); /* Тонкая граница */
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
 }
 
-.cardBack {
-  background: linear-gradient(135deg, var(--primary), var(--secondary));
-  color: white;
-  transform: rotateY(180deg);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 2.5rem; /* Увеличил padding */
-  text-align: center;
-}
-
-.cardImage {
-  height: 320px; /* Немного увеличил высоту */
-  overflow: hidden;
+.imageContainer {
   position: relative;
+  height: 280px;
+  overflow: hidden;
 }
 
-.cardImage img {
+.productImage {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1); /* Более плавный трансформ */
+  transition: transform 0.5s ease;
 }
 
-.card:hover .cardImage img {
-  transform: scale(1.08); /* Более мягкое увеличение */
+.card:hover .productImage {
+  transform: scale(1.05);
 }
 
-.cardBadge {
+.newBadge {
   position: absolute;
-  top: 24px; /* Подвинул от края */
-  right: 24px;
-  background: var(--primary);
+  top: 15px;
+  left: 15px;
+  background: var(--accent);
   color: white;
-  padding: 0.5rem 1.25rem; /* Увеличил padding */
-  border-radius: 50px;
-  font-weight: 700;
-  font-size: 0.85rem;
-  z-index: 2;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Добавил тень */
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
 }
 
-.cardContent {
-  padding: 2rem;
-  flex-grow: 1;
+.bestSellerBadge {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background: #000;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.productInfo {
+  padding: 20px;
+}
+
+.brandRating {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.brand {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.starIcon {
+  color: #FFD700;
 }
 
 .productName {
-  font-size: 1.5rem;
-  margin-bottom: 0.75rem; /* Увеличил отступ */
-  color: var(--dark);
-  line-height: 1.3; /* Добавил межстрочный интервал */
-}
-
-.productBrand {
-  font-size: 0.95rem; /* Немного увеличил */
-  color: var(--primary);
-  margin-bottom: 1.25rem;
-  font-weight: 600;
-  letter-spacing: 0.5px; /* Добавил tracking */
-}
-
-.productPrice {
-  font-size: 1.8rem;
-  font-weight: 700;
-  margin: 1.25rem 0;
-  color: var(--primary);
-}
-
-.backFeatures {
-  list-style: none;
-  margin: 2rem 0; /* Увеличил отступ */
-  padding: 0;
-}
-
-.backFeatures li {
-  margin-bottom: 1rem; /* Увеличил отступ */
-  position: relative;
-  padding-left: 2rem; /* Увеличил отступ для маркера */
-  font-size: 1.05rem; /* Немного увеличил размер */
-  line-height: 1.6; /* Межстрочный интервал */
-}
-
-.backFeatures li::before {
-  content: '✓';
-  position: absolute;
-  left: 0;
-  color: var(--accent);
-  font-weight: bold;
   font-size: 1.1rem;
+  font-weight: 600;
+  margin: 8px 0 15px;
+  color: #000;
+  line-height: 1.4;
 }
 
-.addToCart {
-  margin-top: auto;
+.colorOptions {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.colorDot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid #eee;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.colorDot:hover {
+  transform: scale(1.1);
+}
+
+.priceContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.price {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #000;
+}
+
+.oldPrice {
+  font-size: 1rem;
+  color: #999;
+  text-decoration: line-through;
+}
+
+.contactButton {
   width: 100%;
-  padding: 1.25rem; /* Увеличил padding */
-  background: var(--dark);
+  padding: 12px;
+  background: #000;
   color: white;
   border: none;
-  border-radius: 50px;
-  font-weight: 700;
+  border-radius: 6px;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); /* Плавный переход */
+  transition: all 0.3s ease;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.75rem; /* Увеличил расстояние между иконкой и текстом */
-  font-size: 1rem;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Добавил тень */
+  gap: 8px;
+  text-decoration: none;
+  text-align: center;
 }
 
-.addToCart:hover {
-  background: black;
-  transform: translateY(-3px) scale(1.02); /* Добавил scale */
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15); /* Увеличил тень при наведении */
+.contactButton:hover {
+  background: var(--accent);
+  transform: translateY(-2px);
 }
 
-/* Добавим эффект свечения при наведении */
-.card:hover {
-  filter: drop-shadow(0 10px 20px rgba(106, 17, 203, 0.15));
+@media (max-width: 768px) {
+  .imageContainer {
+    height: 220px;
+  }
+  
+  .productName {
+    font-size: 1rem;
+  }
+  
+  .price {
+    font-size: 1.1rem;
+  }
+  
+  .contactButton {
+    padding: 10px;
+    font-size: 0.9rem;
+  }
 }

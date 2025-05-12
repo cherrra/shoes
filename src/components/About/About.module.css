@@ -1,119 +1,158 @@
 .about {
-  padding: 8rem 2rem;
   position: relative;
+  height: 100vh;
+  max-height: 900px;
+  display: flex;
+  background-color: #000;
+  color: #fff;
   overflow: hidden;
 }
 
-.about::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
+.aboutContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   height: 100%;
-  background: url('https://i.pinimg.com/736x/c6/4e/a6/c64ea6d78ce58a939570518f4bb84a7c.jpg') repeat;
-  opacity: 0.03;
-  z-index: -1;
+  width: 100%;
 }
+
 .aboutContent {
-  max-width: 1200px;
-  margin: 0 auto;
-  text-align: center;
+  padding: 8rem 4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   position: relative;
   z-index: 2;
 }
 
 .sectionTitle {
-  font-size: clamp(2.5rem, 5vw, 3.5rem);
-  margin-bottom: 3rem;
-  color: var(--dark);
-  position: relative;
-  display: inline-block;
-}
-
-.sectionTitle::after {
-  content: '';
-  position: absolute;
-  bottom: -1rem;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80px;
-  height: 4px;
-  background: linear-gradient(90deg, var(--primary), var(--accent));
-  border-radius: 2px;
-}
-
-.aboutText {
-  font-size: 1.15rem;
-  line-height: 1.9;
-  color: rgba(42, 43, 46, 0.8);
-  margin-bottom: 2rem;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
-  font-weight: 450;
-}
-
-.aboutStats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 3rem;
-  margin-top: 5rem;
-  max-width: 900px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.statItem {
-  background: white;
-  padding: 2.5rem;
-  border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-  transition: all 0.4s ease;
-}
-
-.statItem:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
-}
-
-.statNumber {
-  font-size: 3rem;
+  font-size: clamp(2rem, 4vw, 3.5rem);
   font-weight: 700;
-  color: var(--primary);
-  margin-bottom: 0.5rem;
-  font-family: var(--display);
-}
-
-.statLabel {
-  font-size: 1rem;
-  color: rgba(42, 43, 46, 0.7);
+  line-height: 1.2;
+  margin-bottom: 4rem;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
 
+.aboutColumns {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  margin-bottom: 4rem;
+}
+
+.aboutColumn {
+  position: relative;
+  padding-left: 5rem;
+}
+
+.aboutNumber {
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.1);
+}
+
+.aboutSubtitle {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+.aboutText {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.7);
+  max-width: 400px;
+}
+
+.aboutButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.aboutButton:hover {
+  color: var(--accent);
+}
+
+.aboutButton svg {
+  transition: transform 0.3s ease;
+}
+
+.aboutButton:hover svg {
+  transform: translateX(5px);
+}
+
+.aboutImage {
+  position: relative;
+  background: url('https://images.unsplash.com/photo-1600269452121-4f2416e55c28?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center;
+  background-size: cover;
+}
+
+.imageOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 50%);
+}
+
 @media (max-width: 992px) {
-  .about {
-    padding: 8rem 2rem;
+  .aboutContainer {
+    grid-template-columns: 1fr;
   }
   
-  .aboutStats {
-    grid-template-columns: repeat(2, 1fr);
+  .aboutContent {
+    padding: 6rem 2rem;
+  }
+  
+  .aboutImage {
+    display: none;
   }
 }
 
 @media (max-width: 768px) {
   .about {
-    padding: 6rem 1.5rem;
+    max-height: none;
+    height: auto;
   }
   
-  .aboutStats {
-    grid-template-columns: 1fr;
+  .aboutContent {
+    padding: 4rem 1.5rem;
+  }
+  
+  .sectionTitle {
+    margin-bottom: 2rem;
+  }
+  
+  .aboutColumns {
     gap: 2rem;
-    margin-top: 3rem;
+    margin-bottom: 2rem;
   }
   
-  .aboutText {
-    font-size: 1.05rem;
+  .aboutColumn {
+    padding-left: 4rem;
+  }
+  
+  .aboutNumber {
+    font-size: 2rem;
+  }
+  
+  .aboutSubtitle {
+    font-size: 1.25rem;
   }
 }

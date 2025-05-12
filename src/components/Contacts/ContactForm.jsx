@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styles from './ContactForm.module.css';
+import { FiSend, FiPhone, FiMail, FiClock, FiX } from 'react-icons/fi';
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -16,6 +17,8 @@ const ContactForm = () => {
   });
   
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showPrivacyPolicy, setShowPrivacyPolicy] = useState(false);
+  const [hasReadPrivacyPolicy, setHasReadPrivacyPolicy] = useState(false);
 
   const scriptURL = 'https://script.google.com/macros/s/AKfycbz6GWZuzsCUeOOfy60F_evoz_pWOStCju7kGI_dR9Nr-os1BalXS7gU51EFspC5wrh9UA/exec';
 
@@ -27,8 +30,26 @@ const ContactForm = () => {
     }));
   };
 
+  const handlePhoneClick = () => {
+    const phoneNumber = '+71234567890'.replace(/\D/g, '');
+    window.location.href = `tel:${phoneNumber}`;
+  };
+
+  const handleEmailClick = () => {
+    window.location.href = 'mailto:info@sneakershop.com';
+  };
+
+  const togglePrivacyPolicy = () => {
+    setShowPrivacyPolicy(!showPrivacyPolicy);
+  };
+
+  const handleAcceptPolicy = () => {
+    setHasReadPrivacyPolicy(true);
+    setFormData(prev => ({ ...prev, agreement: true }));
+    setShowPrivacyPolicy(false);
+  };
+
   const validateForm = () => {
-    // Проверка заполнения обязательных полей
     if (!formData.name || !formData.phone || !formData.email) {
       setFormMessage({
         text: 'Пожалуйста, заполните все обязательные поля',
@@ -37,16 +58,15 @@ const ContactForm = () => {
       return false;
     }
     
-    // Проверка согласия с условиями
-    if (!formData.agreement) {
+    if (!formData.agreement || !hasReadPrivacyPolicy) {
       setFormMessage({
-        text: 'Необходимо согласиться с условиями обработки данных',
+        text: 'Необходимо прочитать и принять политику конфиденциальности',
         type: 'error'
       });
+      setShowPrivacyPolicy(true);
       return false;
     }
     
-    // Валидация email
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       setFormMessage({
         text: 'Пожалуйста, введите корректный email',
@@ -55,7 +75,6 @@ const ContactForm = () => {
       return false;
     }
     
-    // Валидация телефона (минимум 10 цифр)
     if (formData.phone.replace(/\D/g, '').length < 10) {
       setFormMessage({
         text: 'Пожалуйста, введите корректный номер телефона',
@@ -93,7 +112,6 @@ const ContactForm = () => {
         type: 'success'
       });
       
-      // Очищаем форму
       setFormData({
         name: '',
         phone: '',
@@ -101,6 +119,7 @@ const ContactForm = () => {
         message: '',
         agreement: false
       });
+      setHasReadPrivacyPolicy(false);
       
     } catch (error) {
       console.error('Error:', error);
@@ -111,7 +130,6 @@ const ContactForm = () => {
     } finally {
       setIsSubmitting(false);
       
-      // Очищаем сообщение об успехе через 5 секунд
       if (formMessage.type === 'success') {
         setTimeout(() => {
           setFormMessage({ text: '', type: '' });
@@ -120,58 +138,47 @@ const ContactForm = () => {
     }
   };
 
-  const handlePhoneClick = () => {
-    const phoneNumber = '+71234567890'.replace(/\D/g, '');
-    window.location.href = `tel:${phoneNumber}`;
-  };
-
-  const handleEmailClick = () => {
-    window.location.href = 'mailto:info@sneakershop.com';
-  };
-
   return (
-    <section className={styles.contact}>
+    <section className={styles.contact} id="contact">
       <div className={styles.contactContainer}>
         <div className={styles.contactInfo}>
-          <h2 className={styles.contactTitle}>Оставьте заявку</h2>
-          <p className={styles.contactText}>
-            Заполните форму и наш менеджер свяжется с вами для уточнения деталей.
-          </p>
+          <h2 className={styles.contactTitle}>
+            <span className={styles.titleLine}>Свяжитесь с нами</span>
+            <span className={styles.titleLine}>любым удобным способом</span>
+          </h2>
           
           <div className={styles.contactDetails}>
             <div 
               className={styles.contactItem} 
               onClick={handlePhoneClick}
-              style={{ cursor: 'pointer' }}
             >
               <div className={styles.contactIcon}>
-                <i className="fas fa-phone-alt"></i>
+                <FiPhone />
               </div>
-              <div>
+              <div className={styles.contactText}>
                 <h3>Телефон</h3>
-                <p>+7 (123) 456-78-90</p>
+                <p>+7 (911) 805-74-18</p>
               </div>
             </div>
             
             <div 
               className={styles.contactItem} 
               onClick={handleEmailClick}
-              style={{ cursor: 'pointer' }}
             >
               <div className={styles.contactIcon}>
-                <i className="fas fa-envelope"></i>
+                <FiMail />
               </div>
-              <div>
+              <div className={styles.contactText}>
                 <h3>Email</h3>
-                <p>info@sneakershop.com</p>
+                <p>info@dreamsneakers.ru</p>
               </div>
             </div>
             
             <div className={styles.contactItem}>
               <div className={styles.contactIcon}>
-                <i className="fas fa-clock"></i>
+                <FiClock />
               </div>
-              <div>
+              <div className={styles.contactText}>
                 <h3>Часы работы</h3>
                 <p>Пн-Пт: 9:00 - 20:00</p>
               </div>
@@ -180,61 +187,58 @@ const ContactForm = () => {
         </div>
         
         <form className={styles.contactForm} onSubmit={handleSubmit}>
-          <div className={styles.formGroup}>
-            <label htmlFor="name" className={styles.formLabel}>Ваше имя *</label>
-            <input 
-              type="text" 
-              id="name" 
-              name="name"
-              className={styles.formInput} 
-              placeholder="Иван Иванов" 
-              value={formData.name}
-              onChange={handleChange}
-              required 
-            />
+          <h3 className={styles.formTitle}>Оставьте заявку</h3>
+          <p className={styles.formSubtitle}>Мы свяжемся с вами в течение 15 минут</p>
+          
+          <div className={styles.formGrid}>
+            <div className={styles.formGroup}>
+              <input 
+                type="text" 
+                name="name"
+                className={styles.formInput} 
+                placeholder="Ваше имя *" 
+                value={formData.name}
+                onChange={handleChange}
+                required 
+              />
+            </div>
+            
+            <div className={styles.formGroup}>
+              <input 
+                type="tel" 
+                name="phone"
+                className={styles.formInput} 
+                placeholder="Телефон *" 
+                value={formData.phone}
+                onChange={handleChange}
+                required 
+              />
+            </div>
+            
+            <div className={styles.formGroup}>
+              <input 
+                type="email" 
+                name="email"
+                className={styles.formInput} 
+                placeholder="Email *" 
+                value={formData.email}
+                onChange={handleChange}
+                required 
+              />
+            </div>
+            
+            <div className={styles.formGroup}>
+              <textarea 
+                name="message"
+                className={styles.formTextarea} 
+                placeholder="Ваше сообщение..."
+                value={formData.message}
+                onChange={handleChange}
+              ></textarea>
+            </div>
           </div>
           
-          <div className={styles.formGroup}>
-            <label htmlFor="phone" className={styles.formLabel}>Телефон *</label>
-            <input 
-              type="tel" 
-              id="phone" 
-              name="phone"
-              className={styles.formInput} 
-              placeholder="+7 (___) ___-__-__" 
-              value={formData.phone}
-              onChange={handleChange}
-              required 
-            />
-          </div>
-          
-          <div className={styles.formGroup}>
-            <label htmlFor="email" className={styles.formLabel}>Email *</label>
-            <input 
-              type="email" 
-              id="email" 
-              name="email"
-              className={styles.formInput} 
-              placeholder="example@mail.com" 
-              value={formData.email}
-              onChange={handleChange}
-              required 
-            />
-          </div>
-          
-          <div className={styles.formGroup}>
-            <label htmlFor="message" className={styles.formLabel}>Ваше сообщение</label>
-            <textarea 
-              id="message" 
-              name="message"
-              className={styles.formTextarea} 
-              placeholder="Опишите ваш заказ..."
-              value={formData.message}
-              onChange={handleChange}
-            ></textarea>
-          </div>
-          
-          <div className={styles.formGroup}>
+          <div className={styles.formFooter}>
             <label className={styles.checkboxLabel}>
               <input 
                 type="checkbox" 
@@ -242,26 +246,78 @@ const ContactForm = () => {
                 checked={formData.agreement}
                 onChange={handleChange}
                 required
+                disabled={!hasReadPrivacyPolicy}
               />
-              <span>Я согласен с <a href="#" className={styles.agreementLink}>условиями обработки персональных данных</a></span>
+              <span className={styles.checkboxCustom}></span>
+              <span>
+                Согласен с{' '}
+                <button 
+                  type="button" 
+                  className={styles.agreementLink}
+                  onClick={togglePrivacyPolicy}
+                >
+                  политикой конфиденциальности
+                </button>
+              </span>
             </label>
+            
+            {formMessage.text && (
+              <div className={`${styles.formMessage} ${styles[formMessage.type]}`}>
+                {formMessage.text}
+              </div>
+            )}
+            
+            <button 
+              type="submit" 
+              className={styles.submitBtn}
+              disabled={isSubmitting || !hasReadPrivacyPolicy}
+            >
+              <FiSend className={styles.submitIcon} />
+              {isSubmitting ? 'Отправляем...' : 'Отправить заявку'}
+            </button>
           </div>
-          
-          {formMessage.text && (
-            <div className={`${styles.formMessage} ${styles[formMessage.type]}`}>
-              {formMessage.text}
-            </div>
-          )}
-          
-          <button 
-            type="submit" 
-            className={styles.submitBtn}
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? 'Отправка...' : 'Отправить заявку'}
-          </button>
         </form>
       </div>
+
+      {/* Модальное окно политики конфиденциальности */}
+      {showPrivacyPolicy && (
+        <div className={styles.privacyModal}>
+          <div className={styles.modalContent}>
+            <button 
+              className={styles.closeButton}
+              onClick={togglePrivacyPolicy}
+            >
+              <FiX />
+            </button>
+            
+            <h3 className={styles.modalTitle}>Политика конфиденциальности</h3>
+            
+            <div className={styles.modalText}>
+              <p>1. Общие положения</p>
+              <p>1.1. Настоящая Политика конфиденциальности регулирует порядок обработки и защиты персональных данных пользователей сайта SneakerShop.</p>
+              
+              <p>2. Состав персональных данных</p>
+              <p>2.1. Мы собираем только необходимые данные: имя, контактный телефон, email и текст сообщения.</p>
+              
+              <p>3. Цели обработки данных</p>
+              <p>3.1. Данные используются исключительно для обработки вашего запроса и обратной связи.</p>
+              
+              <p>4. Защита персональных данных</p>
+              <p>4.1. Мы гарантируем конфиденциальность полученных данных и не передаем их третьим лицам.</p>
+              
+              <p>5. Срок хранения данных</p>
+              <p>5.1. Ваши данные хранятся ровно столько, сколько необходимо для обработки запроса.</p>
+            </div>
+            
+            <button 
+              className={styles.acceptButton}
+              onClick={handleAcceptPolicy}
+            >
+              Я прочитал и принимаю условия
+            </button>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
